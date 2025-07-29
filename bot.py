@@ -143,3 +143,4 @@ def back_to_start(message):
 # === BOTNI ISHGA TUSHURISH ===
 bot.infinity_polling()
 pyTelegramBotAPI
+requirements.txt
