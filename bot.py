@@ -3,10 +3,10 @@ from telebot import types
 import json
 import os
 
-TOKEN = "8227719581:AAEWcJBttuFCTUqtXJPZVR39_pnj_WZWDDY"  # O'zgartir: o'z tokeningni qo'y
+TOKEN = "8227719581:AAG0urV7wYg9DRB2am-xknjqTsY2z3Tr2js"  # O'zgartir: o'z tokeningni qo'y
 bot = telebot.TeleBot(TOKEN)
 
-ADMIN_ID = 123456789  # O'zgartir: o'z Telegram ID'ingni yoz
+ADMIN_ID = 7530173398  # O'zgartir: o'z Telegram ID'ingni yoz
 
 NUMBERS_FILE = "numbers.json"
 SETTINGS_FILE = "settings.json"
