@@ -19,8 +19,12 @@ SETTINGS_FILE = "settings.json"
 if not os.path.exists(NUMBERS_FILE):
     with open(NUMBERS_FILE, "w") as f:
         json.dump({"uzbek": [], "foreign": []}, f)
-if not os.path.exists(SETTINGS_FILE): with open(SETTINGS_FILE, "w") as f: json.dump({"card_number": "5614681914238039", "card_name": "Nasriddinova.M"}, f)
-
+  if not os.path.exists(SETTINGS_FILE):
+    with open(SETTINGS_FILE, "w") as f:
+        json.dump({
+            "card_number": "5614681914238039",
+            "card_name": "Nasriddinova.M"
+        }, f)
 #=== /start ===
 
 @bot.message_handler(commands=['start']) def start_handler(message): markup = types.ReplyKeyboardMarkup(resize_keyboard=True) markup.add(types.KeyboardButton("\ud83d\udcf1 O'zbek raqam olish"), types.KeyboardButton("\ud83c\udf0d Chet el raqam olish")) if message.from_user.id == ADMIN_ID: markup.add(types.KeyboardButton("\u2699\ufe0f Admin panel")) bot.send_message(message.chat.id, "Xush kelibsiz! Qaysi turdagi raqam kerak?", reply_markup=markup)
