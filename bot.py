@@ -11,7 +11,8 @@ ADMIN_ID = 7530173398
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
-NUMBERS_FILE = "numbers.json" SETTINGS_FILE = "settings.json"
+NUMBERS_FILE = "numbers.json"
+SETTINGS_FILE = "settings.json"
 
 #=== Fayllarni yaratish ===
 
