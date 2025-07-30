@@ -16,8 +16,9 @@ SETTINGS_FILE = "settings.json"
 
 #=== Fayllarni yaratish ===
 
-if not os.path.exists(NUMBERS_FILE): with open(NUMBERS_FILE, "w") as f: json.dump({"uzbek": [], "foreign": []}, f)
-
+if not os.path.exists(NUMBERS_FILE):
+    with open(NUMBERS_FILE, "w") as f:
+        json.dump({"uzbek": [], "foreign": []}, f)
 if not os.path.exists(SETTINGS_FILE): with open(SETTINGS_FILE, "w") as f: json.dump({"card_number": "5614681914238039", "card_name": "Nasriddinova.M"}, f)
 
 #=== /start ===
