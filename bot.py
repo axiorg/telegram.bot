@@ -5,9 +5,9 @@ import os
 from flask import Flask, request
 
 # === Sozlamalar ===
-TOKEN = "8227719581:AAG0urV7wYg9DRB2am-xknjqTsY2z3Tr2js"
+TOKEN = "7511389832:AAE7UGj9hFKHpNkYsi1hvqcgk03Q4aWRCs0"
 WEBHOOK_URL = "https://telegram-bot-2-lbu8.onrender.com"
-ADMIN_ID = 7530173398
+ADMIN_ID = 6990930957
 
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
