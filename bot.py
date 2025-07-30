@@ -22,23 +22,23 @@ if not os.path.exists(SETTINGS_FILE): with open(SETTINGS_FILE, "w") as f: json.d
 
 === /start komandasi ===
 
-@bot.message_handler(commands=['start']) def start_handler(message): markup = types.ReplyKeyboardMarkup(resize_keyboard=True) markup.add(types.KeyboardButton("\ud83d\udcf1 O'zbek raqam olish"), types.KeyboardButton("\ud83c\udf0d Chet el raqam olish")) if message.from_user.id == ADMIN_ID: markup.add(types.KeyboardButton("\u2699\ufe0f Admin panel")) bot.send_message(message.chat.id, "Xush kelibsiz! Qaysi turdagi raqam kerak?", reply_markup=markup)
+@bot.message_handler(commands=['start']) def start_handler(message): markup = types.ReplyKeyboardMarkup(resize_keyboard=True) markup.add(types.KeyboardButton("📱 O'zbek raqam olish"), types.KeyboardButton("🌍 Chet el raqam olish")) if message.from_user.id == ADMIN_ID: markup.add(types.KeyboardButton("⚙️ Admin panel")) bot.send_message(message.chat.id, "Xush kelibsiz! Qaysi turdagi raqam kerak?", reply_markup=markup)
 
 === Raqamlarni ko'rsatish ===
 
-@bot.message_handler(func=lambda message: message.text in ["\ud83d\udcf1 O'zbek raqam olish", "\ud83c\udf0d Chet el raqam olish"]) def show_numbers(message): category = "uzbek" if "O'zbek" in message.text else "foreign" with open(NUMBERS_FILE, "r") as f: data = json.load(f) numbers = data.get(category, []) if not numbers: bot.send_message(message.chat.id, "Hozircha bu bo‘limda raqam yo‘q.") return for item in numbers: btn = types.InlineKeyboardMarkup() btn.add(types.InlineKeyboardButton(f"\ud83d\udcb3 Sotib olish - {item['price']} so'm", callback_data=f"buy_{item['number']}")) bot.send_message(message.chat.id, f"\ud83d\udcde {item['number']} — {item['price']} so'm", reply_markup=btn)
+@bot.message_handler(func=lambda message: message.text in ["📱 O'zbek raqam olish", "🌍 Chet el raqam olish"]) def show_numbers(message): category = "uzbek" if "O'zbek" in message.text else "foreign" with open(NUMBERS_FILE, "r") as f: data = json.load(f) numbers = data.get(category, []) if not numbers: bot.send_message(message.chat.id, "Hozircha bu bo‘limda raqam yo‘q.") return for item in numbers: btn = types.InlineKeyboardMarkup() btn.add(types.InlineKeyboardButton(f"💳 Sotib olish - {item['price']} so'm", callback_data=f"buy_{item['number']}")) bot.send_message(message.chat.id, f"📞 {item['number']} — {item['price']} so'm", reply_markup=btn)
 
 === To'lov bosilganda ===
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith("buy_")) def process_payment(call): number = call.data.split("", 1)[1] with open(SETTINGS_FILE, "r") as f: settings = json.load(f) markup = types.InlineKeyboardMarkup() markup.add(types.InlineKeyboardButton("\ud83d\udce4 To‘lov qildim", callback_data=f"paid{number}")) bot.send_message(call.message.chat.id, f"\ud83d\udcb3 To‘lov uchun karta:\n\n{settings['card_number']}\nIsm: {settings['card_name']}\n\nTo‘lovni amalga oshirgach 'To‘lov qildim' tugmasini bosing.", reply_markup=markup)
+@bot.callback_query_handler(func=lambda call: call.data.startswith("buy_")) def process_payment(call): number = call.data.split("", 1)[1] with open(SETTINGS_FILE, "r") as f: settings = json.load(f) markup = types.InlineKeyboardMarkup() markup.add(types.InlineKeyboardButton("📤 To‘lov qildim", callback_data=f"paid{number}")) bot.send_message(call.message.chat.id, f"💳 To‘lov uchun karta:\n\n{settings['card_number']}\nIsm: {settings['card_name']}\n\nTo‘lovni amalga oshirgach 'To‘lov qildim' tugmasini bosing.", reply_markup=markup)
 
 === Chek so'rash ===
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith("paid_")) def ask_for_receipt(call): bot.send_message(call.message.chat.id, "\ud83e\uddfe Chek rasmini yuboring.") bot.register_next_step_handler(call.message, handle_receipt, call.data.split("_", 1)[1])
+@bot.callback_query_handler(func=lambda call: call.data.startswith("paid_")) def ask_for_receipt(call): bot.send_message(call.message.chat.id, "🧾 Chek rasmini yuboring.") bot.register_next_step_handler(call.message, handle_receipt, call.data.split("_", 1)[1])
 
 === Chekni adminlarga yuborish ===
 
-def handle_receipt(message, number): if not message.photo: bot.send_message(message.chat.id, "Rasm yuboring.") return caption = f"\ud83e\uddfe Chek keldi!\n\n\ud83d\udcde Raqam: {number}\n\ud83d\udc64 @{message.from_user.username or message.from_user.first_name}\nID: {message.from_user.id}" markup = types.InlineKeyboardMarkup() markup.add( types.InlineKeyboardButton("\u2705 Tasdiqlash", callback_data=f"confirm_{message.from_user.id}{number}"), types.InlineKeyboardButton("\u274c Rad etish", callback_data=f"reject{message.from_user.id}_{number}") ) bot.send_photo(ADMIN_ID, message.photo[-1].file_id, caption=caption, reply_markup=markup) bot.send_message(message.chat.id, "✅ Chekingiz yuborildi. Iltimos kuting.")
+def handle_receipt(message, number): if not message.photo: bot.send_message(message.chat.id, "Rasm yuboring.") return caption = f"🧾 Chek keldi!\n\n📞 Raqam: {number}\n👤 @{message.from_user.username or message.from_user.first_name}\nID: {message.from_user.id}" markup = types.InlineKeyboardMarkup() markup.add( types.InlineKeyboardButton("✅ Tasdiqlash", callback_data=f"confirm_{message.from_user.id}{number}"), types.InlineKeyboardButton("❌ Rad etish", callback_data=f"reject{message.from_user.id}_{number}") ) bot.send_photo(ADMIN_ID, message.photo[-1].file_id, caption=caption, reply_markup=markup) bot.send_message(message.chat.id, "✅ Chekingiz yuborildi. Iltimos kuting.")
 
 === Admin tasdiqlashi ===
 
@@ -48,3 +48,4 @@ def handle_receipt(message, number): if not message.photo: bot.send_message(mess
 
 if name == "main": webhook_url = f"https://telegram-bot-2-lbu8.onrender.com/{TOKEN}" bot.remove_webhook() bot.set_webhook(webhook_url) port = int(os.environ.get("PORT", 5000)) app.run(host="0.0.0.0", port=port)
 
+  
