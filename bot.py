@@ -3,7 +3,7 @@ from telebot import types
 import json
 import os
 
-TOKEN = "SENING_BOT_TOKENING"  # O'zgartir: o'z tokeningni qo'y
+TOKEN = "8227719581:AAEWcJBttuFCTUqtXJPZVR39_pnj_WZWDDY"  # O'zgartir: o'z tokeningni qo'y
 bot = telebot.TeleBot(TOKEN)
 
 ADMIN_ID = 123456789  # O'zgartir: o'z Telegram ID'ingni yoz
