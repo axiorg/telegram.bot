@@ -51,6 +51,3 @@ def start_handler(message):
 # === Raqam ko‘rsatish, to‘lov jarayoni, admin paneli funksiyalari shu yerdan pastga qoladi ===
 # Oldingi kodda yozilgan qismlar — ularni bu yerga joylab ketamiz, agar kerak bo‘lsa yana qo‘shib beraman
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
