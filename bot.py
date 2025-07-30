@@ -5,7 +5,7 @@ import os
 from flask import Flask, request
 
 # === Sozlamalar ===
-TOKEN = "YANGI_BOT_TOKENINGIZNI_BU_YERGA_YOZING"
+TOKEN = "8227719581:AAG0urV7wYg9DRB2am-xknjqTsY2z3Tr2js"
 WEBHOOK_URL = "https://telegram-bot-2-lbu8.onrender.com"
 ADMIN_ID = 7530173398
 
